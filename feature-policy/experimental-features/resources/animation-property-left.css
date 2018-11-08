@@ -1,0 +1,4 @@
+@keyframes animation_property_left {
+  from { left: 0px }
+  to { left: 100px }
+}

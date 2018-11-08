@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script src="/feature-policy/experimental-features/resources/common.js"></script>
+<title> 'layout-animations' Policy : violation reports from javascript
+</title>
+<body>
+<script>
+  // Sanity-check: Feature policy 'layout-animations' is disabled.
+  test(() => {
+    document.policy.allowedFeatures().forEach((enabled_feature) => {
+      assert_not_equals(enabled_feature, "layout-animations");
+    });
+  },
+  "Verify 'layout-animations' is not in document's feature list.");
+
+  // Verify reports are correctly generated for linked scrips running a banned
+  // animation.
+  promise_test(async () => {
+    let promise = wait_for_violation_in_file(
+      "layout-animations",
+      "animation-property-height.js");
+    let script = document.createElement("script");
+    script.src = "/feature-policy/experimental-features/resources/" +
+                 "animation-property-height.js";
+    document.body.appendChild(script);
+    await promise;
+  },
+  "Verify linked script using banned animations generates violation reports.");
+
+  // Verify reports are correctly generated for inline scripts running banned
+  // animations.
+  promise_test(async () => {
+    let promise = wait_for_violation_in_file(
+      "layout-animations",
+      "layout-animations-disabled-violation-report-js-tentative.html");
+    let div = document.createElement("div");
+    document.body.appendChild(div);
+    div.animate([{width: "100px"}, {width: "200px"}]);
+    await promise;
+  },
+  "Verify inline scripts using banned animations generate violation reports.");
+</script>
+</body>

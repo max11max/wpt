@@ -65,3 +65,23 @@ function wait_for_load(e) {
     e.addEventListener("load", resolve);
   });
 }
+
+window.reporting_observer_instance = new ReportingObserver((reports, observer) => {
+  if (window.reporting_observer_callback) {
+    reports.forEach(window.reporting_observer_callback);
+  }
+});
+window.reporting_observer_instance.observe();
+
+// Waits for a violation in |feature| and source file containing |file_name|.
+function wait_for_violation_in_file(feature, file_name) {
+  return new Promise( (resolve) => {
+    window.reporting_observer_callback = (r) => {
+        if (r.body.feature === feature &&
+            r.body.sourceFile.indexOf(file_name) !== -1) {
+          window.reporting_observer_callback = null;
+          resolve(r);
+        }
+    };
+  });
+}
