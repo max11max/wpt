@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>backdrop-filter: Basic operation of filter</title>
+<link rel="author" title="Mason Freed" href="mailto:masonfreed@chromium.org">
+
+<div>
+  <p>Expected: A red box with three inverted boxes on top of it.<br>
+  All three should have similar levels of color and opacity applied,<br>
+  except the top-right, which should be more blue.</p>
+</div>
+
+<div class="colorbox"></div>
+
+<div class="box1outside"></div>
+<div class="box1inside"></div>
+
+<div class="box2outside"></div>
+<div class="box2inside"></div>
+
+<div class="box3outside"></div>
+<div class="box3inside"></div>
+
+
+<style>
+.colorbox {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    background: red;
+    left: 150px;
+    top: 150px;
+}
+.box1outside {
+    background: #000080;
+    position: absolute;
+    width: 150px;
+    height: 100px;
+    left: 250px;
+    top: 100px;
+}
+.box1inside {
+    background: #0080ff;
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    left: 250px;
+    top: 150px;
+}
+.box2outside {
+    background: black;
+    position: absolute;
+    width: 150px;
+    height: 100px;
+    left: 250px;
+    top: 300px;
+}
+.box2inside {
+    background: cyan;
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    left: 250px;
+    top: 300px;
+}
+.box3outside {
+    background: black;
+    position: absolute;
+    width: 150px;
+    height: 100px;
+    left: 50px;
+    top: 200px;
+}
+.box3inside {
+    background: cyan;
+    position: absolute;
+    width: 50px;
+    height: 100px;
+    left: 150px;
+    top: 200px;
+}
+</style>
+
