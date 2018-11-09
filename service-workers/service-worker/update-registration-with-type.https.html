@@ -16,6 +16,7 @@ promise_test(async t => {
   const script = `resources/update-registration-with-type.py?classic_first=1&key=${key}`;
   const scope = 'resources/update-registration-with-type';
   await service_worker_unregister(t, scope);
+  t.add_cleanup(() => service_worker_unregister(t, scope));
 
   // Register with classic script type.
   const firstRegistration = await navigator.serviceWorker.register(script, {
@@ -46,6 +47,7 @@ promise_test(async t => {
   const script = `resources/update-registration-with-type.py?classic_first=0&key=${key}`;
   const scope = 'resources/update-registration-with-type';
   await service_worker_unregister(t, scope);
+  t.add_cleanup(() => service_worker_unregister(t, scope));
 
   // Register with module script type.
   const firstRegistration = await navigator.serviceWorker.register(script, {
